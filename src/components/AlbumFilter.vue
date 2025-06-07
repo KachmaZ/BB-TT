@@ -1,7 +1,7 @@
 <template>
   <div class="flex gap-4 items-center">
     <input
-      v-model="input"
+      v-model="albumIdsField"
       class="border px-4 py-2 rounded w-64 dark:bg-gray-800 dark:border-gray-600"
       placeholder="ID альбомов (например: 1 2 3)"
     />
@@ -15,10 +15,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { usePhotoStore } from '../stores/photoStore'
 
-const input = ref('')
-const onSearch = () => {
-  console.log('Нажат поиск, введено:', input.value)
+const store = usePhotoStore()
+const { albumIdsField } = storeToRefs(store)
+const { fetchPhotos } = store
+
+const onSearch = async () => {
+  await fetchPhotos()
 }
 </script>

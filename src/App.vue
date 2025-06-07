@@ -14,4 +14,14 @@
 import AlbumFilter from './components/AlbumFilter.vue'
 import PhotoTable from './components/PhotoTable.vue'
 import ThemeToggle from './components/ThemeToggle.vue'
+import { onMounted } from 'vue'
+import { usePhotoStore } from '@/stores/photoStore'
+
+const { loadAlbumIdsFromStorage, fetchPhotos, loadThemeFromStorage } = usePhotoStore()
+
+onMounted(async () => {
+  loadAlbumIdsFromStorage()
+  loadThemeFromStorage()
+  await fetchPhotos()
+})
 </script>

@@ -1,27 +1,22 @@
 <template>
   <button
     class="text-sm py-1 border rounded hover:bg-gray-100 dark:hover:bg-gray-700 p-3"
-    @click="toggle"
+    @click="toggleTheme"
   >
-    {{ isDark ? 'Светлая тема' : 'Тёмная тема' }}
+    {{ theme === 'dark' ? 'Тёмная тема' : 'Светлая тема' }}
   </button>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { usePhotoStore } from '@/stores/photoStore'
+import { storeToRefs } from 'pinia'
 
-const isDark = ref(false)
+const store = usePhotoStore()
 
-const toggle = () => {
-  isDark.value = !isDark.value
-  document.documentElement.classList.toggle('dark', isDark.value)
-  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
+const { theme } = storeToRefs(store)
+const { setTheme } = store
+
+const toggleTheme = () => {
+  setTheme(theme.value === 'dark' ? 'light' : 'dark')
 }
-
-onMounted(() => {
-  isDark.value = localStorage.getItem('theme') === 'dark'
-  if (isDark.value) {
-    document.documentElement.classList.add('dark')
-  }
-})
 </script>
