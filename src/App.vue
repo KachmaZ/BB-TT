@@ -1,6 +1,17 @@
 <template>
-  <div class="p-4 bg-gray-100">main</div>
+  <div class="photo-table_wrapper flex justify-center items-center p-4">
+    <div class="photo-table flex flex-col">
+      <div class="photo-table_controls flex justify-between items-center mb-4">
+        <ThemeToggle />
+        <AlbumFilter />
+      </div>
+      <PhotoTable />
+    </div>
+  </div>
 </template>
 
-<script setup></script>
-<style scoped></style>
+<script setup>
+import AlbumFilter from './components/AlbumFilter.vue'
+import PhotoTable from './components/PhotoTable.vue'
+import ThemeToggle from './components/ThemeToggle.vue'
+</script>
